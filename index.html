@@ -13,7 +13,11 @@
     <title>ShouldIAutomate.It</title>
 
     <style>
-        
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 950px;
+}
     </style>
 </head>
 <body>
@@ -172,45 +176,97 @@ $('.duration-picker').durationPicker({
 
 // Chart
 var ctx = document.getElementById("chart");
+
+Chart.defaults.global.defaultFontColor = 'grey';
+Chart.defaults.global.defaultFontFamily = "Tahoma";
+Chart.defaults.global.defaultFontSize = 11;
+Chart.defaults.global.defaultFontStyle = 'normal';
+
+colorGood = '80,158,81';
+colorBad = '226,90,88';
+
 var options = {
     type: 'line',
     data: {
-        labels: ["0", "1", "2", "3", "4", "5"],
+        labels: [1, 2, 4, 6,7, 10] ,
         datasets: [
             {
                 label: 'Automate',
-                backgroundColor: "rgba(151,187,205,0.2)",
-                borderColor: "rgba(151,187,205,1)",
-                data: [0, 3, 1, 2, 3, 5]
+                backgroundColor: "rgba(" + colorGood + ",0.1)",
+                borderColor: "rgba(" + colorGood + ",1)",
+                pointBackgroundColor : "rgba("+colorGood+",1)",
+                pointBorderColor: "#fff",
+                pointBorderWidth: 1,
+            		pointRadius: 4,
+                lineTension: 0,
+                pointHoverBackgroundColor : "#fff",
+                pointHoverBorderColor: "rgba(" + colorGood + ",1)",
+                pointHoverBorderWidth: 1,
+                borderWidth: 2,
+                data: [80, 80, 80, 80, 80, 80]
             },
             {
                 label: 'Manuel',
-                backgroundColor: "rgba(220,220,220,0.2)",
-                borderColor: "rgba(220,220,220,1)",
-                data: [2, 3, 5, 7, 11, 13]
+                backgroundColor: "rgba(" + colorBad + ",0.1)",
+                borderColor: "rgba(" + colorBad + ",1)",
+                pointBackgroundColor : "rgba(" + colorBad + ",1)",
+                pointBorderColor: "#fff",
+                pointBorderWidth: 1,
+            		pointRadius: 4,
+                lineTension: 0,
+                pointHoverBackgroundColor : "#fff",
+                pointHoverBorderColor: "rgba(" + colorBad + ",1)",
+                pointHoverBorderWidth: 1,
+                borderWidth: 2,
+                data: [8.84, 17.68, 35.36, 53.04, 70.72, 88.4]
             }
         ]
     },
     options: {
-        tooltips: {
-            enabled: false
+    		responsive: true,
+        
+        title: {
+            display: true,
+            text: 'Total cost over repetions',
+            fontColor: "#444",
+            fontFamily: 'Tahoma',
+            padding: 0
         },
+        
         legend: {
-            position: 'top'
+            display: true,
+            labels: {
+                fontColor: 'grey',
+                usePointStyle: true
+            }
         },
+        
         scales: {
             yAxes: [{
                 scaleLabel: {
                     display: true,
-                    labelString: 'Cost'
+                    labelString: 'Total cost in €'
                 }
             }],
             xAxes: [{
                 scaleLabel: {
                     display: true,
-                    labelString: 'Repetitions'
+                    labelString: '# of repetitions'
                 }
             }]
+        },
+        
+        tooltips: {
+            //enabled: false
+            mode: "index",
+            intersect: true,
+            position: 'nearest',
+            bodySpacing: 4,
+            callbacks: {
+            	title: function (tooltipItem, data) {
+            		return "Repetition " + data.labels[tooltipItem[0].index];
+              }
+            }
         }
     }
 };
