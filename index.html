@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="css/bootstrap-duration-picker.css" rel="stylesheet">
+    
+    <title>ShouldIAutomate.It</title>
+
+    <style>
+        
+    </style>
+</head>
+<body>
+
+<div class="container-fluid" role="main">
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header">
+                <h1>Should I automate it?</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>Often times we do things repetetive, sometimes we reflect not early enough but 2-5 repetishens and ask ourselfs the question: Should I really automate this task or just do it just ones more manually?</p>
+                    <p>The form on this site uses the time and salary someone would get and calculates the cost for both decision paths showing both costs. This helps estimate the <a href"https://en.wikipedia.org/wiki/Break-even">break even</a> of an automated branch and finally leads to a better decision.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Manuel
+                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                </div>
+                <div class="panel-body">
+
+<form>
+  <div class="form-group">
+    <label for="man--duration">How long does it take to do it manually?</label>
+     <div class="duration-picker" id="man--duration"></div>
+  </div>
+  <div class="form-group">
+    <label for="man--salary">What is the hourly salery of the person doing it?</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="man--salary" placeholder="8,84">
+      <div class="input-group-addon">&euro;</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="man--amount">How often would it needs to be done?</label>
+        <div class="input-group">
+      <input type="text" class="form-control" id="ato--amount" placeholder="12">
+      <div class="input-group-addon">&sum;</div>
+    </div>
+  </div>
+</form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Automate
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                </div>
+                <div class="panel-body">
+
+<form>
+  <div class="form-group">
+    <label for="ato--duration">How long does it take to automate the work?</label>
+     <div class="duration-picker" id="ato--duration"></div>
+  </div>
+  <div class="form-group">
+    <label for="ato--salary">What is the hourly salery of the person doing it?</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="ato--salary" placeholder="80">
+      <div class="input-group-addon">&euro;</div>
+    </div>
+  </div>
+</form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="alert alert-success">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 class="text-center"><strong>YES</strong></h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h3 class="alert alert-danger text-center">
+                            20 &euro;
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        <br />
+                        <small>total cost of doing the task repetetive</small>
+                        </h3>
+                    </div>
+
+
+                    <div class="col-xs-6">
+                        <h3 class="alert alert-success text-center">
+                            800 &euro;
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        <br />
+                        <small>total cost of automating the task ones</small>
+                        </h3>                    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"
+        integrity="sha256-GcknncGKzlKm69d+sp+k3A2NyQE+jnu43aBl6rrDN2I=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap-duration-picker.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+// Duration
+$('.duration-picker').durationPicker({
+        onChanged: function (value) {
+        console.log(value);
+    }
+});
+
+// Chart
+var ctx = document.getElementById("chart");
+var options = {
+    type: 'line',
+    data: {
+        labels: ["0", "1", "2", "3", "4", "5"],
+        datasets: [
+            {
+                label: 'Automate',
+                backgroundColor: "rgba(151,187,205,0.2)",
+                borderColor: "rgba(151,187,205,1)",
+                data: [0, 3, 1, 2, 3, 5]
+            },
+            {
+                label: 'Manuel',
+                backgroundColor: "rgba(220,220,220,0.2)",
+                borderColor: "rgba(220,220,220,1)",
+                data: [2, 3, 5, 7, 11, 13]
+            }
+        ]
+    },
+    options: {
+        tooltips: {
+            enabled: false
+        },
+        legend: {
+            position: 'top'
+        },
+        scales: {
+            yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Cost'
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Repetitions'
+                }
+            }]
+        }
+    }
+};
+var myChart = new Chart(ctx, options);
+
+        });
+    </script>
+
+</body>
+</html>
