@@ -8,7 +8,6 @@
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link href="css/bootstrap-duration-picker.css" rel="stylesheet">
     
     <title>ShouldIAutomate.It</title>
 
@@ -17,6 +16,9 @@
     margin-right: auto;
     margin-left: auto;
     max-width: 950px;
+}
+.startHidden {
+    display:none;
 }
     </style>
 </head>
@@ -57,7 +59,10 @@
 <form>
   <div class="form-group">
     <label for="man--duration">How long does it take to do it manually?</label>
-     <div class="duration-picker" id="man--duration"></div>
+    <div class="input-group">
+      <input type="text" class="form-control" id="man--duration" placeholder="0,5">
+      <div class="input-group-addon">Hours</div>
+    </div>
   </div>
   <div class="form-group">
     <label for="man--salary">What is the hourly salery of the person doing it?</label>
@@ -69,11 +74,21 @@
   <div class="form-group">
     <label for="man--amount">How often would it needs to be done?</label>
         <div class="input-group">
-      <input type="text" class="form-control" id="ato--amount" placeholder="12">
+      <input type="text" class="form-control" id="man--amount" placeholder="12">
       <div class="input-group-addon">&sum;</div>
     </div>
   </div>
 </form>
+
+<!--
+<div class="alert alert-warning" role="alert">
+   <strong>Hint:</strong> Consider this time effects
+    <ol>
+        <li>Error analyses</li>
+        <li>Fixing errors</li>
+    </ol>
+</div>
+-->
 
                 </div>
             </div>
@@ -90,7 +105,10 @@
 <form>
   <div class="form-group">
     <label for="ato--duration">How long does it take to automate the work?</label>
-     <div class="duration-picker" id="ato--duration"></div>
+    <div class="input-group">
+      <input type="text" class="form-control" id="ato--duration" placeholder="40">
+      <div class="input-group-addon">Hours</div>
+    </div>
   </div>
   <div class="form-group">
     <label for="ato--salary">What is the hourly salery of the person doing it?</label>
@@ -107,48 +125,26 @@
 
     </div>
 
-    <div class="row">
-
+    <div class="row startHidden">
         <div class="col-xs-12">
-            <div class="alert alert-success">
+            <div class="alert" id="box--main">
 
-                <div class="row">
+                <div class="row" id="box--main--msg">
                     <div class="col-xs-12">
-                        <h2 class="text-center"><strong>YES</strong></h2>
+                        <h2 class="text-center"><strong><span id="box--main--msg--status"></span></strong></h2>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-6">
-                        <h3 class="alert alert-danger text-center">
-                            20 &euro;
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        <br />
-                        <small>total cost of doing the task repetetive</small>
-                        </h3>
-                    </div>
-
-
-                    <div class="col-xs-6">
-                        <h3 class="alert alert-success text-center">
-                            800 &euro;
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                        <br />
-                        <small>total cost of automating the task ones</small>
-                        </h3>                    
-                    </div>
-                </div>
-
+                <div class="row" id="box--main--cost"></div>
             </div>
         </div>
-
     </div>
 
-    <div class="row">
+    <div class="row startHidden">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <canvas id="chart"></canvas>
+                    <canvas id="chart--main--canvas"></canvas>
                 </div>
             </div>
         </div>
@@ -162,69 +158,71 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"
         integrity="sha256-GcknncGKzlKm69d+sp+k3A2NyQE+jnu43aBl6rrDN2I=" crossorigin="anonymous"></script>
-    <script src="js/bootstrap-duration-picker.js"></script>
 
     <script>
-        $(document).ready(function () {
+$(function() {
 
-// Duration
-$('.duration-picker').durationPicker({
-        onChanged: function (value) {
-        console.log(value);
+var INPUT = {
+    "man--duration": null,
+    "man--salary": null,
+    "man--amount": null,
+    "ato--duration": null,
+    "ato--salary": null  
+};
+
+function renderGraphAxis(label, color, data) {
+    return {
+        label: label,
+        backgroundColor: "rgba(" + color + ",0.1)",
+        borderColor: "rgba(" + color + ",1)",
+        pointBackgroundColor : "rgba(" + color + ",1)",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 1,
+        pointRadius: 4,
+        lineTension: 0,
+        pointHoverBackgroundColor : "#fff",
+        pointHoverBorderColor: "rgba(" + color + ",1)",
+        pointHoverBorderWidth: 1,
+        borderWidth: 2,
+        data: data
     }
-});
+}
 
-// Chart
-var ctx = document.getElementById("chart");
+function renderGraphData(cost) {
+    var label = [];
+    var man = [];
+    var ato = [];
+    var scale = INPUT["man--amount"];
 
-Chart.defaults.global.defaultFontColor = 'grey';
-Chart.defaults.global.defaultFontFamily = "Tahoma";
-Chart.defaults.global.defaultFontSize = 11;
-Chart.defaults.global.defaultFontStyle = 'normal';
+    for (var i=1; i <= scale; i++) {
+        label.push(i);
+        man.push((INPUT["man--duration"] * INPUT["man--salary"]) * i);
+        ato.push(cost['ato']);
+    }
 
-colorGood = '80,158,81';
-colorBad = '226,90,88';
+    return {
+        "label": label,
+        "ato": ato,
+        "man": man
+    }
+}
 
-var options = {
-    type: 'line',
-    data: {
-        labels: [1, 2, 4, 6,7, 10] ,
-        datasets: [
-            {
-                label: 'Automate',
-                backgroundColor: "rgba(" + colorGood + ",0.1)",
-                borderColor: "rgba(" + colorGood + ",1)",
-                pointBackgroundColor : "rgba("+colorGood+",1)",
-                pointBorderColor: "#fff",
-                pointBorderWidth: 1,
-            		pointRadius: 4,
-                lineTension: 0,
-                pointHoverBackgroundColor : "#fff",
-                pointHoverBorderColor: "rgba(" + colorGood + ",1)",
-                pointHoverBorderWidth: 1,
-                borderWidth: 2,
-                data: [80, 80, 80, 80, 80, 80]
-            },
-            {
-                label: 'Manuel',
-                backgroundColor: "rgba(" + colorBad + ",0.1)",
-                borderColor: "rgba(" + colorBad + ",1)",
-                pointBackgroundColor : "rgba(" + colorBad + ",1)",
-                pointBorderColor: "#fff",
-                pointBorderWidth: 1,
-            		pointRadius: 4,
-                lineTension: 0,
-                pointHoverBackgroundColor : "#fff",
-                pointHoverBorderColor: "rgba(" + colorBad + ",1)",
-                pointHoverBorderWidth: 1,
-                borderWidth: 2,
-                data: [8.84, 17.68, 35.36, 53.04, 70.72, 88.4]
-            }
-        ]
-    },
-    options: {
-    		responsive: true,
-        
+function renderGraph(cost) {
+    var idChartMainCanvas = 'chart--main--canvas'
+    var elChartMainCanvas = $('#' + idChartMainCanvas);
+
+    var color = {
+        good: '80,158,81',
+        bad: '226,90,88'
+    };
+
+    var label = {
+        man: 'Manuel',
+        ato: 'Automate'
+    };
+
+    var optionsLineChart = {
+        responsive: true,
         title: {
             display: true,
             text: 'Total cost over repetions',
@@ -232,7 +230,6 @@ var options = {
             fontFamily: 'Tahoma',
             padding: 0
         },
-        
         legend: {
             display: true,
             labels: {
@@ -240,7 +237,6 @@ var options = {
                 usePointStyle: true
             }
         },
-        
         scales: {
             yAxes: [{
                 scaleLabel: {
@@ -255,24 +251,171 @@ var options = {
                 }
             }]
         },
-        
         tooltips: {
-            //enabled: false
             mode: "index",
             intersect: true,
             position: 'nearest',
             bodySpacing: 4,
             callbacks: {
-            	title: function (tooltipItem, data) {
-            		return "Repetition " + data.labels[tooltipItem[0].index];
-              }
+                title: function (tooltipItem, data) {
+                    return "Repetition " + data.labels[tooltipItem[0].index];
+                }
             }
         }
-    }
-};
-var myChart = new Chart(ctx, options);
+    };
 
-        });
+    // Style font
+    Chart.defaults.global.defaultFontColor = 'grey';
+    Chart.defaults.global.defaultFontFamily = "Tahoma";
+    Chart.defaults.global.defaultFontSize = 11;
+    Chart.defaults.global.defaultFontStyle = 'normal';
+
+    // Generate axis data
+    var data = renderGraphData(cost);
+
+    // Render result cost
+    if (cost['man'] <= cost['ato']) {
+        dataset = [
+            renderGraphAxis(label['man'], color['good'], data['man']),
+            renderGraphAxis(label['ato'], color['bad'], data['ato'])
+        ]    
+    } else {
+        dataset = [
+            renderGraphAxis(label['man'], color['bad'], data['man']),
+            renderGraphAxis(label['ato'], color['good'], data['ato'])
+        ]    
+    }
+
+    // Show box
+    elChartMainCanvas.closest('.row').removeClass('startHidden');
+
+    // Configure data
+    var chartOptions = {
+        type: 'line',
+        data: {
+            labels: data["label"],
+            datasets: dataset
+        },
+        options: optionsLineChart
+    };
+
+    // Render chart
+    var chart = new Chart(
+        document.getElementById(idChartMainCanvas),
+        chartOptions
+    );
+}
+
+function renderBoxCost(cost, shouldAutomate = false) {
+    var style = {
+        success: {
+            color: 'alert-success',
+            icon: 'fa-check'
+        },
+        failure: {
+            color: 'alert-danger',
+            icon: 'fa-times'
+        }
+    }
+
+    var msg = {
+        man: 'total cost of doing the task repetetive',
+        ato: 'total cost of automating the task ones'
+    };
+
+    var markUp = '<div class="col-xs-6"><h3 class="alert {{color}} text-center">{{cost}} &euro; ' +
+        '<i class="fa {{icon}}" aria-hidden="true"></i>' +
+        '<br /><small>{{msg}}</small></h3></div>';
+
+    var resMan = 'success', resAto = 'failure';
+
+    if (shouldAutomate) {
+        resMan = 'failure', resAto = 'success';
+    }
+
+    return markUp.replace(/{{color}}/g, style[resMan]['color']) // Manual
+                .replace(/{{cost}}/g, cost['man'])
+                .replace(/{{icon}}/g, style[resMan]['icon'])
+                .replace(/{{msg}}/g, msg['man']) + 
+           markUp.replace(/{{color}}/g, style[resAto]['color']) // Automate
+                .replace(/{{cost}}/g, cost['ato'])
+                .replace(/{{icon}}/g, style[resAto]['icon'])
+                .replace(/{{msg}}/g, msg['ato']);
+}
+
+function calulateCost() {
+
+    var costMan = (INPUT["man--duration"] * INPUT["man--salary"]) * INPUT["man--amount"];
+    var costAto = INPUT["ato--duration"] * INPUT["ato--salary"];
+
+    if (costMan % 1 != 0 || costAto % 1 != 0) {
+        costMan = costMan.toFixed(2);
+        costAto = costAto.toFixed(2);
+    }
+
+    return {
+        "man": costMan,
+        "ato": costAto
+    };
+}
+
+function renderBox(cost) {
+    var elMain = $('#box--main');
+    var elMainMsgStatus = $('#box--main--msg--status');
+    var elMainCost = $('#box--main--cost');
+
+    // Show box
+    elMain.closest('.row').removeClass('startHidden');
+
+    // Render result cost
+    if (cost['man'] <= cost['ato']) {
+        elMain.removeClass('alert-success').addClass('alert-danger');
+        elMainMsgStatus.text('NO');
+        elMainCost.html(renderBoxCost(cost));
+    } else {
+        elMain.removeClass('alert-danger').addClass('alert-success');
+        elMainMsgStatus.text('YES');
+        elMainCost.html(renderBoxCost(cost, true));
+    }
+}
+
+function render() {
+    var cost = calulateCost();
+    renderBox(cost);
+    renderGraph(cost);
+}
+
+function react() {
+    var id = this.id;
+    var el = $(this);
+    var val = el.val().replace(/,/g, '.');
+
+    // Validate input field
+    if ( !val || isNaN(parseFloat(val)) || !isFinite(val)) {
+        el.closest('.form-group').addClass('has-error');
+        return
+    } else {
+        el.closest('.form-group').removeClass('has-error');
+    }
+
+    // Update input
+    INPUT[id] = val
+
+    // Check if all inputs are set
+    for (var key in INPUT) {
+        if (INPUT.hasOwnProperty(key) && INPUT[key] == null) {
+            return
+        }
+    }
+
+    // Render cost
+    render();
+}
+
+// Bind input elements to react function
+$('#man--duration,#man--salary,#man--amount,#ato--duration,#ato--salary').on('input', react);
+
+});
     </script>
 
 </body>
