@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+
+    <title>Page not found - ShouldIAutomate.It</title>
+
+    <style>
+        .container-fluid {
+            margin-right: auto;
+            margin-left: auto;
+            max-width: 950px;
+        }
+        
+        .jumbotron {
+            text-align: center;
+            background-color: transparent;
+        }
+        
+        .red {
+            color: #d9534f;
+        }
+    </style>
+</head>
+
+<body onload="javascript:loadDomain();">
+
+    <div class="container-fluid" role="main">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h1><i class="fa fa-frown-o red"></i> 404 Page not found</h1>
+                    <p class="lead">We couldn't find what you're looking for on<br>
+                        <em><span id="display-domain"></span></em>.</p>
+                    <p><a onclick=javascript:checkSite(); class="btn btn-default btn-lg">Take me to the homepage</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function loadDomain() {
+            var display = document.getElementById("display-domain");
+            display.innerHTML = document.domain;
+        }
+        function checkSite() {
+            var currentSite = window.location.hostname;
+            window.location = "http://" + currentSite;
+        }
+    </script>
+</body>
+
+</html>
