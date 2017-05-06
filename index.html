@@ -45,8 +45,9 @@
             <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <p>Often, we do things repetitive, sometimes we reflect not early enough but 2-5 repetitions and ask
-                            ourselves thee question: Should I really automate this task or just do it just ones more manually?</p>
+                        <p>Often, we do things repetitive, sometimes we reflect not early enough but after 2-5 repetitions we
+                            ask ourselves the following question: Should I really automate this task or just do it just once
+                            more manually?</p>
                         <p>The form on this site uses the time and salary someone would get and calculates the cost for both
                             decision paths showing both costs. This helps estimate the break-even of an automated branch
                             and finally leads to a better decision.</p>
@@ -203,11 +204,21 @@
                 var label = [];
                 var man = [];
                 var ato = [];
-                var scale = INPUT["man--amount"];
+                var SCALE_MAX = 10;
+                var scale = INPUT["man--amount"] / SCALE_MAX;
 
-                for (var i = 1; i <= scale; i++) {
-                    label.push(i);
-                    man.push((INPUT["man--duration"] * INPUT["man--salary"]) * i);
+                // Show only amount given
+                if (INPUT["man--amount"] < SCALE_MAX) {
+                    var scaleTo = INPUT["man--amount"];
+                } else {
+                    var scaleTo = SCALE_MAX;
+                }
+
+                for (var i = 1; i <= scaleTo; i++) {
+                    var normalized = Math.ceil(scale * i);
+
+                    label.push(normalized);
+                    man.push((INPUT["man--duration"] * INPUT["man--salary"]) * normalized);
                     ato.push(cost['ato']);
                 }
 
@@ -331,7 +342,7 @@
 
                 var msg = {
                     man: 'total cost of doing the task repetetive',
-                    ato: 'total cost of automating the task ones'
+                    ato: 'total cost of automating the task once'
                 };
 
                 var markUp = '<div class="col-xs-6"><h3 class="alert {{color}} text-center">{{cost}} &euro; ' +
