@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Calculator to compare cost for a task either doing it manually or automating it">
+    <meta name="keywords" content="calculate, cost, manual, automate, compare">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+    <!-- build:css inline ../min/index.css -->
+    <link href="index.css" rel="stylesheet">
+    <!-- /build -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <title>ShouldIAutomate.It - Compare cost for a task either doing it manually or automating it</title>
+</head>
+
+<body>
+
+    <div class="container-fluid" role="main">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="page-header">
+                    <h1>Should I automate it?</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>Although we often do things repetitive, we sometimes do not reflect early enough but after 2-5 repetitions
+                            and because of the reflection we ask ourselves: <code>Should I automate the task or just do it once more manually?</code></p>
+                        <p>The form on this site uses the time and the salary you would need to pay to a person who does the
+                            task for you and calculates the costs for both decision paths. As a result, this helps to estimate
+                            the break-even of an automated branch and leads to a better decision.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Manuel
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="panel-body">
+
+                        <form>
+                            <div class="form-group">
+                                <label for="man--duration">How long does it take to do it manually?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="man--duration" placeholder="0,5">
+                                    <div class="input-group-addon">Hours</div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Hint:</strong> Consider not only the time to do the actual task itself, also include
+                                additional work not obvious as:
+                                <ol>
+                                    <li>Checking the accuracy of the manual result</li>
+                                    <li>Fixing problems in hindsight</li>
+                                </ol>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="man--salary">What is the hourly salary of the person doing it?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="man--salary" placeholder="8,84">
+                                    <div class="input-group-addon">&euro;</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="man--amount">How often would it needs to be done?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="man--amount" placeholder="12">
+                                    <div class="input-group-addon">&sum;</div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Automate
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </div>
+                    <div class="panel-body">
+
+                        <form>
+                            <div class="form-group">
+                                <label for="ato--duration">How long does it take to automate the work?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="ato--duration" placeholder="40">
+                                    <div class="input-group-addon">Hours</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ato--salary">What is the hourly salary of the person doing it?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="ato--salary" placeholder="80">
+                                    <div class="input-group-addon">&euro;</div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row startHidden">
+            <div class="col-xs-12">
+                <div class="alert" id="box--main">
+
+                    <div class="row" id="box--main--msg">
+                        <div class="col-xs-12">
+                            <h2 class="text-center"><strong><span id="box--main--msg--status"></span></strong></h2>
+                        </div>
+                    </div>
+
+                    <div class="row" id="box--main--cost"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row startHidden">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <canvas id="chart--main--wrapper--canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" integrity="sha256-GcknncGKzlKm69d+sp+k3A2NyQE+jnu43aBl6rrDN2I="
+        crossorigin="anonymous"></script>
+    <!-- build:js inline ../min/index.js -->
+    <script src="index.js"></script>
+    <!-- /build -->
+</body>
+
+</html>

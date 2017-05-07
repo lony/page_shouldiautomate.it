@@ -1,0 +1,14 @@
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 950px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.red {
+    color: #d9534f;
+}

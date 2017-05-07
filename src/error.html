@@ -9,27 +9,13 @@
         crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous">
+    <!-- build:css inline ../min/error.css -->
+    <link href="error.css" rel="stylesheet">
+    <!-- /build -->
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
     <title>Page not found - ShouldIAutomate.It</title>
-
-    <style>
-        .container-fluid {
-            margin-right: auto;
-            margin-left: auto;
-            max-width: 950px;
-        }
-        
-        .jumbotron {
-            text-align: center;
-            background-color: transparent;
-        }
-        
-        .red {
-            color: #d9534f;
-        }
-    </style>
 </head>
 
 <body onload="javascript:loadDomain();">
@@ -53,28 +39,10 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-    <script>
-        // Google Analytics
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    <!-- build:js inline ../min/error.js -->
+    <script src="error.js"></script>
+    <!-- /build -->
 
-        ga('create', 'UA-98693658-1', 'auto');
-        ga('send', 'pageview');
-
-        // Own code
-        function loadDomain() {
-            var display = document.getElementById("display-domain");
-            display.innerHTML = document.domain;
-        }
-        function checkSite() {
-            var currentSite = window.location.hostname;
-            window.location = "http://" + currentSite;
-        }
-    </script>
 </body>
 
 </html>
