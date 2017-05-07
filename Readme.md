@@ -20,7 +20,7 @@ shouldautomate.it
                         "s3:GetObject"
                     ],
                     "Resource": [
-                        "arn:aws:s3:::shouldautomate.it/*"
+                        "arn:aws:s3:::shouldiautomate.it/*"
                     ]
                 }
             ]
@@ -32,3 +32,8 @@ shouldautomate.it
 ## Improve SEO
 
 * [Search Engine Optimization Starter Guide](https://static.googleusercontent.com/media/www.google.com/de//webmasters/docs/search-engine-optimization-starter-guide.pdf) from Google
+
+## Gimmick
+
+* https://xkcd.com/1205/
+* https://xkcd.com/1319/
