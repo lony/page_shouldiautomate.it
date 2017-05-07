@@ -1,6 +1,11 @@
 shouldautomate.it
 ========
 
+# Distribute
+
+* `npm install`
+* `grunt`
+
 # Install
 
 ## Host on AWS
@@ -24,6 +29,34 @@ shouldautomate.it
                     ]
                 }
             ]
+        }
+        ```
+    * Deploy user policy
+
+        ```
+        {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": ["arn:aws:s3:::shouldiautomate.it"]
+            },
+            {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:DeleteObject"
+            ],
+            "Resource": ["arn:aws:s3:::shouldiautomate.it/*"]
+            }
+        ]
         }
         ```
 
