@@ -157,7 +157,7 @@
             <div class="col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <canvas id="chart--main--canvas"></canvas>
+                        <canvas id="chart--main--wrapper--canvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -192,6 +192,7 @@
                 "ato--duration": null,
                 "ato--salary": null
             };
+            var chart;
 
             function renderGraphAxis(label, color, data) {
                 return {
@@ -241,8 +242,8 @@
             }
 
             function renderGraph(cost) {
-                var idChartMainCanvas = 'chart--main--canvas'
-                var elChartMainCanvas = $('#' + idChartMainCanvas);
+                var idChartMainWrapperCanvas = 'chart--main--wrapper--canvas'
+                var elChartMainWrapperCanvas = $('#' + idChartMainWrapperCanvas);
 
                 var color = {
                     good: '80,158,81',
@@ -297,12 +298,6 @@
                     }
                 };
 
-                // Style font
-                Chart.defaults.global.defaultFontColor = 'grey';
-                Chart.defaults.global.defaultFontFamily = "Tahoma";
-                Chart.defaults.global.defaultFontSize = 11;
-                Chart.defaults.global.defaultFontStyle = 'normal';
-
                 // Generate axis data
                 var data = renderGraphData(cost);
 
@@ -319,9 +314,6 @@
                     ];
                 }
 
-                // Show box
-                elChartMainCanvas.closest('.row').removeClass('startHidden');
-
                 // Configure data
                 var chartOptions = {
                     type: 'line',
@@ -332,9 +324,23 @@
                     options: optionsLineChart
                 };
 
+                // Show box
+                elChartMainWrapperCanvas.closest('.row').removeClass('startHidden');
+
+                // Style font
+                Chart.defaults.global.defaultFontColor = 'grey';
+                Chart.defaults.global.defaultFontFamily = "Tahoma";
+                Chart.defaults.global.defaultFontSize = 11;
+                Chart.defaults.global.defaultFontStyle = 'normal';
+
+                // Destroy old graph
+                if (chart) {
+                    chart.destroy();
+                }
+
                 // Render chart
-                var chart = new Chart(
-                    document.getElementById(idChartMainCanvas),
+                chart = new Chart(
+                    document.getElementById(idChartMainWrapperCanvas),
                     chartOptions
                 );
             }
