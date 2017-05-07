@@ -1,3 +1,4 @@
 min
 dist
 node_modules
+aws-deploy-key.json
