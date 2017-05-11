@@ -45,6 +45,10 @@ module.exports = function (grunt) {
       ico: {
         src: "src/favicon.ico",
         dest: "dist/3_comp/favicon.ico"
+      },
+      robot: {
+        src: "src/robots.txt",
+        dest: "dist/3_comp/robots.txt"
       }
     },
     compress: {

@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="robots" content="index,follow"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="Calculator to compare cost for a task either doing it manually or automating it">
-    <meta name="keywords" content="calculate, cost, manual, automate, compare">
+    <title>Calculate and visualize your cost automating, or doing a task manually</title>
+    <meta name="description" content="Calculate and visualize your cost automating, or doing a task manually. Should you auomate it?">
+    <meta name="keywords" content="calculate, cost, investment, manual, automate, automating, compare, should, break-even, time, money, salary, task">
+
+    <link rel="canonical" href="http://www.shouldiautomate.it"/>
+
+    <meta property="og:title" content="Calculate and visualize your cost automating, or doing a task manually" />
+	<meta property="og:description" content="Calculate and visualize your cost automating, or doing a task manually. Should you auomate it?" />
+	<meta property="og:url" content="http://shouldiautomate.it" />
+	<meta property="og:locale" content="en_GB" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="ShouldIAutomate.It" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
@@ -15,10 +28,6 @@
     <!-- build:css inline ../dist/1_min/index.css -->
     <link href="index.css" rel="stylesheet">
     <!-- /build -->
-
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-
-    <title>ShouldIAutomate.It - Compare cost for a task either doing it manually or automating it</title>
 </head>
 
 <body>
@@ -52,8 +61,10 @@
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Manual
-                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                        <h4>
+                            Manual
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                        </h4>
                     </div>
                     <div class="panel-body">
 
@@ -99,8 +110,10 @@
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Automate
-                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        <h4>
+                            Automate
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                        </h4>
                     </div>
                     <div class="panel-body">
 
@@ -134,7 +147,7 @@
 
                     <div class="row" id="box--main--msg">
                         <div class="col-xs-12">
-                            <h2 class="text-center"><strong><span id="box--main--msg--status"></span></strong></h2>
+                            <h2 class="text-center"><strong><span id="box--main--msg--status">Should I automate it?</span></strong></h2>
                         </div>
                     </div>
 
