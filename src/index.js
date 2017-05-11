@@ -67,7 +67,7 @@ $(function () {
         };
 
         var label = {
-            man: 'Manuel',
+            man: 'Manual',
             ato: 'Automate'
         };
 
