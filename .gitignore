@@ -1,4 +1,4 @@
-min
-dist
+.DS_Store
 node_modules
 aws-deploy-key.json
+dist

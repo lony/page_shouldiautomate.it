@@ -70,3 +70,4 @@ shouldautomate.it
 
 * https://xkcd.com/1205/
 * https://xkcd.com/1319/
+* https://imgur.com/gallery/Q8kV8
