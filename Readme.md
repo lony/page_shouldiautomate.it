@@ -11,6 +11,7 @@ shouldautomate.it
 ## Host on AWS
 
 * Setup [static page on S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html)
+
     * Bucket policy
 
         ```
@@ -31,6 +32,7 @@ shouldautomate.it
             ]
         }
         ```
+        
     * Deploy user policy
 
         ```
@@ -61,10 +63,17 @@ shouldautomate.it
         ```
 
 * Enhance [using CloudFront](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/MigrateS3ToCloudFront.html) as a CDN
+* Enhance [using SSL](https://aws.amazon.com/de/blogs/aws/new-aws-certificate-manager-deploy-ssltls-based-apps-on-aws/)
+
+# Content
 
 ## Improve SEO
 
 * [Search Engine Optimization Starter Guide](https://static.googleusercontent.com/media/www.google.com/de//webmasters/docs/search-engine-optimization-starter-guide.pdf) from Google
+
+## Email
+
+* Receive emails via [SES](https://github.com/arithmetric/aws-lambda-ses-forwarder)
 
 ## Gimmick
 
