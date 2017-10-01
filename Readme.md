@@ -63,7 +63,7 @@ shouldautomate.it
         ```
 
 * Enhance [using CloudFront](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/MigrateS3ToCloudFront.html) as a CDN
-* Enhance [using SSL](https://aws.amazon.com/de/blogs/aws/new-aws-certificate-manager-deploy-ssltls-based-apps-on-aws/)
+* Enhance [using SSL](https://aws.amazon.com/de/blogs/aws/new-aws-certificate-manager-deploy-ssltls-based-apps-on-aws/), [2](https://medium.com/@sbuckpesch/setup-aws-s3-static-website-hosting-using-ssl-acm-34d41d32e394), [3](https://medium.com/@willmorgan/moving-a-static-website-to-aws-s3-cloudfront-with-https-1fdd95563106)
 
 # Content
 
